@@ -1,13 +1,25 @@
 import { api } from "./api";
 
-export default async function signIn(name, password) {
-  const token = await api.post(`/auth/login`, {
+export async function signInTeacher(name, password) {
+  const res = await api.post(`/auth/login/teacher`, {
     name,
     password,
   });
 
-  if(token) {
-    localStorage.setItem("accessToken", await token.data.accessToken);
-    return localStorage.getItem("accessToken");
+  if(res) {
+    localStorage.setItem("accessToken", await res.data.accessToken);
+    return await res.data.role;
+  }
+};
+
+export async function signInPupil(name, password) {
+  const res = await api.post(`/auth/login/pupil`, {
+    name,
+    password,
+  });
+
+  if(res) {
+    localStorage.setItem("accessToken", await res.data.accessToken);
+    return await res.data.role;
   }
 }

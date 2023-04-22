@@ -4,20 +4,23 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import SignIn from "./components/SignIn/SignIn";
 import { useEffect, useState } from "react";
+import TeacherMain from "./components/TeacherMain/TeacherMain";
+import PupilMain from "./components/PupilMain/PupilMain";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("accessToken"));
- 
+  const [userRole, setUserRole] = useState(localStorage.getItem("accessToken"));
 
- useEffect(() => {
-  console.log('isLoggedIn', isLoggedIn);
- }, [isLoggedIn])
+  useEffect(() => {
+    console.log("isLoggedIn", userRole);
+  }, [userRole]);
   return (
     <div className="App">
-      {!isLoggedIn ? (
-        <SignIn setIsLoggedIn={setIsLoggedIn}/>
+      {!userRole ? (
+        <SignIn setIsLoggedIn={setUserRole} />
+      ) : userRole === "teacher" ? (
+        <TeacherMain setIsLoggedIn={setUserRole} />
       ) : (
-        <div className="">HELLO</div>
+        <PupilMain setIsLoggedIn={setUserRole} />
       )}
     </div>
   );

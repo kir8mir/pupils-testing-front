@@ -1,24 +1,36 @@
-import * as React from "react";
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import signIn from "../../utils/signIn";
+import { signInTeacher, signInPupil } from "../../utils/signIn";
 import { Stack, Switch } from "@mui/material";
+import { Fingerprint } from "@mui/icons-material";
 
 const theme = createTheme();
 
-export default function SignIn({setIsLoggedIn}) {
+export default function SignIn({ setIsLoggedIn }) {
+  const [pupilOrTeacher, setPupilOrTeacher] = useState(true);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    setIsLoggedIn(await signIn(data.get("email"), data.get("password")));
+    pupilOrTeacher
+      ? setIsLoggedIn(
+          await signInPupil(data.get("email"), data.get("password"))
+        )
+      : setIsLoggedIn(
+          await signInTeacher(data.get("email"), data.get("password"))
+        );
+  };
+
+  const pupilOrTeacherSwitcher = (event) => {
+    setPupilOrTeacher(event.target.checked);
   };
 
   return (
@@ -33,11 +45,11 @@ export default function SignIn({setIsLoggedIn}) {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
+          <Avatar sx={{ m: 1, bgcolor: "white" }}>
+            <Fingerprint color="success" />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Авторизація
           </Typography>
           <Box
             component="form"
@@ -53,7 +65,7 @@ export default function SignIn({setIsLoggedIn}) {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Імʼя"
               name="email"
               autoComplete="email"
               autoFocus
@@ -63,16 +75,20 @@ export default function SignIn({setIsLoggedIn}) {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Пароль"
               type="password"
               id="password"
               autoComplete="current-password"
             />
-            <Stack flexDirection='row' alignItems='center'>
+            <Stack flexDirection="row" alignItems="center">
               <Typography component="h1" variant="h6">
                 Я вчитель
               </Typography>
-              <Switch defaultChecked color="default" />
+              <Switch
+                onChange={pupilOrTeacherSwitcher}
+                defaultChecked
+                color="default"
+              />
               <Typography component="h1" variant="h6">
                 Я учень
               </Typography>
@@ -84,7 +100,7 @@ export default function SignIn({setIsLoggedIn}) {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Увійти
             </Button>
           </Box>
         </Box>
