@@ -18,7 +18,7 @@ function App() {
     <div className="App">
       {!userRole ? (
         <SignIn setIsLoggedIn={setUserRole} />
-      ) : userRole === "teacher" ? (
+      ) : localStorage.getItem("role") === "teacher" ? (
         <TeacherMain setIsLoggedIn={setUserRole} />
       ) : (
         <PupilMain setIsLoggedIn={setUserRole} />

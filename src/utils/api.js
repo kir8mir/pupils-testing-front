@@ -3,8 +3,6 @@ import axios from 'axios';
 const accessToken = localStorage.getItem('accessToken');
 const baseURL = 'http://localhost:3003'
 
-
-
 export const api = axios.create({
   baseURL,
   headers: {
@@ -15,12 +13,12 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((request) => {
-  const accessToken = localStorage.getItem('accessToken'); //TODO: Localstorage
+  const accessToken = localStorage.getItem('accessToken');
   if (accessToken != null && request.headers) {
     request.headers.Authorization = `Bearer ${accessToken}`
     return request;
   }
-  return request;
+  // return request;
 });
 
 api.interceptors.response.use(

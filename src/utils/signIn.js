@@ -8,6 +8,7 @@ export async function signInTeacher(name, password) {
 
   if(res) {
     localStorage.setItem("accessToken", await res.data.accessToken);
+    localStorage.setItem("role", await res.data.role);
     return await res.data.role;
   }
 };
@@ -20,6 +21,7 @@ export async function signInPupil(name, password) {
 
   if(res) {
     localStorage.setItem("accessToken", await res.data.accessToken);
+    localStorage.setItem("role", await res.data.role);
     return await res.data.role;
   }
 }
