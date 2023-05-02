@@ -46,7 +46,7 @@ export default function SignIn({ setIsLoggedIn }) {
     <ThemeProvider theme={theme}>
       <Container
         component="main"
-        maxWidth="xs"
+        maxWidth="100%"
         sx={{
           height: "100%",
           display: "flex",

@@ -15,7 +15,7 @@ export default function TeacherMain({
 
 
   return (
-    <Stack gap={"100px"}>
+    <Stack gap={"50px"}>
       <Header
         setIsLoggedIn={setIsLoggedIn}
         rerender={rerender}

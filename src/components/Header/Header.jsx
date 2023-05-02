@@ -16,10 +16,11 @@ export default function Header({ setIsLoggedIn }) {
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between"
-        paddingX="2rem"
+        padding="20px 50px"
+        backgroundColor="rgba(128, 128, 128, 0.2)"
       >
         <Typography component="h1" variant="subtitle2">
-          {`HELLO ${localStorage.getItem("role")}`}
+          {`Привіт ${localStorage.getItem("name")}`}
         </Typography>
 
         {localStorage.getItem("role") === "teacher" ? (

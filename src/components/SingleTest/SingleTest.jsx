@@ -35,6 +35,8 @@ export default function SingleTest({ setSingleTestModal, singleTestModal }) {
     flexDirection: "column",
     textAlign: "center",
     gap: "30px",
+    maxHeight: "90vh",
+    overflow: "scroll",
   };
   const [open, setOpen] = React.useState(true);
   const [selectedPupil, setSelectedPupil] = React.useState("");
@@ -147,7 +149,12 @@ export default function SingleTest({ setSingleTestModal, singleTestModal }) {
     >
       <Box sx={style}>
         <Typography
-          sx={{ borderBottom: "3px dashed gray" }}
+          sx={{
+            borderBottom: "3px dashed gray",
+            maxWidth: "100%",
+            textOverflow: "ellipsis",
+
+          }}
           id="modal-modal-title"
           variant="h4"
           component="h2"
@@ -273,11 +280,11 @@ export default function SingleTest({ setSingleTestModal, singleTestModal }) {
                   </Typography>
                   {isPupil && !alreadyAnswered.length && (
                     <Checkbox
-                      checked={pupilAnswers.current.some(
-                        (pupilAnswer) =>
-                          pupilAnswer.answerId === answer.id &&
-                          pupilAnswer.isChecked
-                      )}
+                      // checked={pupilAnswers.current.some(
+                      //   (pupilAnswer) =>
+                      //     pupilAnswer.answerId === answer.id &&
+                      //     pupilAnswer.isChecked
+                      // )}
                       onClick={() => setAnswer(answer.id)}
                       color="success"
                     />
@@ -308,7 +315,6 @@ export default function SingleTest({ setSingleTestModal, singleTestModal }) {
             borderRadius: "8px",
           }}
         >
-          {" "}
           {grade && (
             <Typography
               id="modal-modal-title"
@@ -322,6 +328,7 @@ export default function SingleTest({ setSingleTestModal, singleTestModal }) {
             </Box>
           )}
         </Box>
+
         {!isPupil && (
           <LoadingButton
             color="secondary"

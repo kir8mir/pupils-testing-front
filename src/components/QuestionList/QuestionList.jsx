@@ -43,7 +43,7 @@ export default function QuestionList({setAnswerList, setQuestionList, answerList
                   questionTitle={question.title}
                 />
                 <IconButton
-                  style={{ width: "min-content" }}
+                  style={{ width: "min-content", height: "min-content" }}
                   onClick={() =>
                     setAnswerList([
                       ...answerList,
@@ -61,7 +61,7 @@ export default function QuestionList({setAnswerList, setQuestionList, answerList
       </TransitionGroup>
 
       <IconButton
-        style={{ width: "min-content" }}
+        style={{ width: "min-content", marginTop: '20px' }}
         onClick={() =>
           setQuestionList([...questionList, { title: "", id: uuidv4() }])
         }

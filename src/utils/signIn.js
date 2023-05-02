@@ -21,6 +21,7 @@ export async function signInTeacher(name, password) {
     localStorage.setItem("accessToken", await res.data.accessToken);
     localStorage.setItem("role", await res.data.role);
     localStorage.setItem("userId", await res.data.teacherId);
+    localStorage.setItem("name", name);
     return await res.data.role;
   }
 }
@@ -35,6 +36,7 @@ export async function signInPupil(name, password) {
     localStorage.setItem("accessToken", await res.data.accessToken);
     localStorage.setItem("role", await res.data.role);
     localStorage.setItem("userId", await res.data.userId);
+    localStorage.setItem("name", name);
     return await res.data.role;
   } catch (error) {
     console.log("LOGIN ERROR", error);

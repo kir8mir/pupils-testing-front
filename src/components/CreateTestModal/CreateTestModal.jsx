@@ -28,6 +28,7 @@ const style = {
 
 export default function CreateTestModal() {
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [testTitle, setTestTitle] = React.useState("");
   const [questionList, setQuestionList] = React.useState([]);
   const [answerList, setAnswerList] = React.useState([]);
@@ -35,12 +36,17 @@ export default function CreateTestModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  async function handleClick() {
+    await createTest(testTitle, questionList, answerList);
 
-  function handleClick() {
-    createTest(testTitle, questionList, answerList);
-    setOpen(false);
-    // eslint-disable-next-line no-restricted-globals
-    location.reload();
+    setLoading(true);
+    const timeout = setTimeout(() => {
+      setLoading(false);
+      // eslint-disable-next-line no-restricted-globals
+      location.reload();
+      setOpen(false);
+      clearTimeout(timeout);
+    }, 5000);
   }
 
   return (
@@ -77,6 +83,7 @@ export default function CreateTestModal() {
             color="secondary"
             onClick={handleClick}
             loadingPosition="start"
+            loading={loading}
             startIcon={<SaveIcon />}
             variant="contained"
           >

@@ -21,13 +21,13 @@ export default function TestCard({ title, testId }) {
         setIsDone(true);
       }
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDone]);
 
   return (
     <Card
       sx={{
-        maxWidth: 345,
+        maxWidth: 300,
         minWidth: 300,
         backgroundColor:
           localStorage.getItem("role") === "pupil"
@@ -39,7 +39,14 @@ export default function TestCard({ title, testId }) {
     >
       <CardActionArea>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography
+            sx={{ maxWidth: 200, textOverflow: "ellipsis", overflow: "hidden" }}
+            maxWidth={"300px"}
+            noWrap
+            gutterBottom
+            variant="h5"
+            component="div"
+          >
             {title}
           </Typography>
         </CardContent>

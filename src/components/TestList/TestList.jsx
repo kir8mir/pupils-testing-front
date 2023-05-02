@@ -9,7 +9,6 @@ export default function TestList() {
   const [singleTestModal, setSingleTestModal] = useState(null);
   const [testList, setTestList] = useState([]);
 
-
   const getSingleTest = async (id) => {
     setSingleTestModal(await getOneTest(id));
     localStorage.setItem("currentTestId", id);
@@ -23,11 +22,10 @@ export default function TestList() {
   //   updateTestList();
   // });
 
-
   useEffect(() => {
     updateTestList();
     console.log("testList", testList);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [testList.length]);
 
   useEffect(() => {}, [testList.length]);
@@ -38,14 +36,15 @@ export default function TestList() {
       flexDirection={"row"}
       gap={"35px"}
       flexWrap={"wrap"}
-      justifyContent={"center"}
+      justifyContent={"flex-start"}
+      maxWidth={"1000px"}
+      margin={"auto"}
     >
-      {testList &&
-        testList.map((test) => (
-          <div key={test.id} onClick={() => getSingleTest(test.id)}>
-            <TestCard title={test.title} testId={test.id} />
-          </div>
-        ))}
+      {testList.map((test) => (
+        <div key={test.id} onClick={() => getSingleTest(test.id)}>
+          <TestCard title={test.title} testId={test.id} />
+        </div>
+      ))}
 
       {singleTestModal && (
         <SingleTest
