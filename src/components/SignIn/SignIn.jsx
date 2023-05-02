@@ -8,13 +8,17 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { signInTeacher, signInPupil } from "../../utils/signIn";
-import { Stack, Switch } from "@mui/material";
+import { ButtonGroup, Stack, Switch } from "@mui/material";
 import { Fingerprint } from "@mui/icons-material";
+import { createMyProfile } from "../../utils/createMyProfile";
+import { borderRadius, padding } from "@mui/system";
 
 const theme = createTheme();
 
 export default function SignIn({ setIsLoggedIn }) {
   const [pupilOrTeacher, setPupilOrTeacher] = useState(true);
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,20 +33,36 @@ export default function SignIn({ setIsLoggedIn }) {
         );
   };
 
+  const createProfile = async (event) => {
+    event.preventDefault();
+    createMyProfile(pupilOrTeacher, { name, password });
+  };
+
   const pupilOrTeacherSwitcher = (event) => {
     setPupilOrTeacher(event.target.checked);
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container
+        component="main"
+        maxWidth="xs"
+        sx={{
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            backgroundColor: 'white',
+            padding: '20px',
+            borderRadius: '20px'
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "white" }}>
@@ -69,6 +89,7 @@ export default function SignIn({ setIsLoggedIn }) {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(event) => setName(event.target.value)}
             />
             <TextField
               margin="normal"
@@ -79,6 +100,7 @@ export default function SignIn({ setIsLoggedIn }) {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(event) => setPassword(event.target.value)}
             />
             <Stack flexDirection="row" alignItems="center">
               <Typography component="h1" variant="h6">
@@ -94,14 +116,18 @@ export default function SignIn({ setIsLoggedIn }) {
               </Typography>
             </Stack>
 
-            <Button
-              type="submit"
-              fullWidth
+            <ButtonGroup
+              disableElevation
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              aria-label="Disabled elevation buttons"
             >
-              Увійти
-            </Button>
+              <Button type="submit" fullWidth sx={{ mt: 3, mb: 2 }}>
+                Увійти
+              </Button>
+              <Button onClick={createProfile} fullWidth sx={{ mt: 3, mb: 2 }}>
+                Створити профіль
+              </Button>
+            </ButtonGroup>
           </Box>
         </Box>
       </Container>

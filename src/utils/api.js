@@ -18,7 +18,7 @@ api.interceptors.request.use((request) => {
     request.headers.Authorization = `Bearer ${accessToken}`
     return request;
   }
-  // return request;
+  return request;
 });
 
 api.interceptors.response.use(

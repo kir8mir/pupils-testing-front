@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: transparent;
+  position: relative;
+}
+.canvas-wrapper {
+  font-family: sans-serif;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+.canvas-wrapper input {
+  z-index: 1301;
+  position: relative;
+}
+
+ul {
+  list-style: none;
+}
+.canvas-full-screen {
+  position: absolute;
+  border: inset 1px black;
+  background: url("../images/canvasBG.png");
+  z-index: 200;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.toolbar {
+  display: flex;
+  position: absolute;
+  gap: 1rem;
+  z-index: 300;
+}
+.toolbar button {
+  height: 2rem;
+  font-size: 1.2rem;
+  min-width: 2rem;
+  z-index: 300;
+}
+.color-swatch {
+  background: var(--color-swatch);
+  color: white;
+  border: solid 2px transparent;
+  z-index: 300;
+}
+.color-swatch.current {
+  border: dotted 2px cyan;
+  z-index: 300;
+}
+
+.visually-hidden {
+  position: absolute;
+  z-index: 0;
+  left: -100%;
+  z-index: 300;
+}
