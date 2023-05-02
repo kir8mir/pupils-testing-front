@@ -60,7 +60,7 @@ export default function SignIn({ setIsLoggedIn }) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            backgroundColor: 'white',
+            backgroundColor: 'red',
             padding: '20px',
             borderRadius: '20px'
           }}
