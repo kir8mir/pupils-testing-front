@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const accessToken = localStorage.getItem('accessToken');
-const baseURL = 'http://localhost:3003'
+const baseURL = 'http://176.223.141.42:8080'
 
 export const api = axios.create({
   baseURL,
