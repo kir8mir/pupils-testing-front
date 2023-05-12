@@ -1,6 +1,5 @@
 {
   "name": "pupils-app",
-  "homepage": "https://kir8mir.github.io/pupils-testing-front",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
