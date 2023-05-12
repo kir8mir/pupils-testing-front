@@ -17,5 +17,6 @@ export async function createMyProfile(pupilOrTeacher, { name, password }) {
     }
   } catch {
     console.log("ERROOOORR");
+    return null;
   }
 }

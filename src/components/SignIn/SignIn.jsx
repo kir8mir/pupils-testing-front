@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { signInTeacher, signInPupil } from "../../utils/signIn";
-import { ButtonGroup, Stack, Switch } from "@mui/material";
+import { Alert, ButtonGroup, Stack, Switch } from "@mui/material";
 import { Fingerprint } from "@mui/icons-material";
 import { createMyProfile } from "../../utils/createMyProfile";
 import { borderRadius, padding } from "@mui/system";
@@ -19,6 +19,7 @@ export default function SignIn({ setIsLoggedIn }) {
   const [pupilOrTeacher, setPupilOrTeacher] = useState(true);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [alert, setAlert] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -34,8 +35,15 @@ export default function SignIn({ setIsLoggedIn }) {
   };
 
   const createProfile = async (event) => {
-    event.preventDefault();
+    const response = event.preventDefault();
     createMyProfile(pupilOrTeacher, { name, password });
+    if (response) {
+      setAlert(true)
+      const timeout = setTimeout(() => {
+        setAlert(false);
+        clearTimeout(timeout);
+      }, 1500);
+    }
   };
 
   const pupilOrTeacherSwitcher = (event) => {
@@ -60,9 +68,9 @@ export default function SignIn({ setIsLoggedIn }) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            backgroundColor: 'white',
-            padding: '20px',
-            borderRadius: '20px'
+            backgroundColor: "white",
+            padding: "20px",
+            borderRadius: "20px",
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "white" }}>
@@ -130,6 +138,9 @@ export default function SignIn({ setIsLoggedIn }) {
             </ButtonGroup>
           </Box>
         </Box>
+        {alert && (
+          <Alert severity="success">{`Ви успішно зареєстровані!`}</Alert>
+        )}
       </Container>
     </ThemeProvider>
   );
