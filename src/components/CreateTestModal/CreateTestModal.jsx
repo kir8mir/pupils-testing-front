@@ -87,7 +87,7 @@ export default function CreateTestModal() {
             startIcon={<SaveIcon />}
             variant="contained"
           >
-            <span>Save</span>
+            <span>Зберегти</span>
           </LoadingButton>
         </Box>
       </Modal>
