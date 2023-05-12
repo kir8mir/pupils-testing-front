@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import React, { useEffect, useRef, useState } from "react";
-import bg from "../images/bg.jpg";
+import bg from "../images/bg.webp";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import { sendPupilAnswer } from "../../utils/sendPupilAnswer";

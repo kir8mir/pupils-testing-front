@@ -22,7 +22,7 @@ ul {
 .canvas-full-screen {
   position: absolute;
   border: inset 1px black;
-  background: url("../images/canvasBG.png");
+  background: url("../images/canvasBG.webp");
   z-index: 200;
 }
 

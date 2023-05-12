@@ -3,7 +3,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "./main.css";
-import bg from "./components/images/mainBG.jpg";
+import bg from "./components/images/mainBG.webp";
 import SignIn from "./components/SignIn/SignIn";
 import {  useState } from "react";
 import TeacherMain from "./components/TeacherMain/TeacherMain";
