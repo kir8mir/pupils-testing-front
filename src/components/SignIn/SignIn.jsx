@@ -19,7 +19,7 @@ export default function SignIn({ setIsLoggedIn }) {
   const [pupilOrTeacher, setPupilOrTeacher] = useState(true);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [alert, setAlert] = useState(false);
+  const [alert, setAlert] = useState("null");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -35,14 +35,20 @@ export default function SignIn({ setIsLoggedIn }) {
   };
 
   const createProfile = async (event) => {
-    const response = event.preventDefault();
-    createMyProfile(pupilOrTeacher, { name, password });
+    event.preventDefault();
+    const response = await createMyProfile(pupilOrTeacher, { name, password });
     if (response) {
-      setAlert(true)
+      setAlert("yes");
       const timeout = setTimeout(() => {
-        setAlert(false);
+        setAlert("null");
         clearTimeout(timeout);
-      }, 1500);
+      }, 10000);
+    } else {
+      setAlert("no");
+      const timeout = setTimeout(() => {
+        setAlert("null");
+        clearTimeout(timeout);
+      }, 5000);
     }
   };
 
@@ -137,10 +143,19 @@ export default function SignIn({ setIsLoggedIn }) {
               </Button>
             </ButtonGroup>
           </Box>
+          {alert === "no" && (
+            <Alert
+              style={{ position: "absolute", maxWidth: "300px", top: "0" }}
+              severity="error"
+            >{`Сталася помилка. Імʼя вже зайнато!`}</Alert>
+          )}{" "}
+          {alert === "yes" && (
+            <Alert
+              style={{ position: "absolute", maxWidth: "300px", top: "0" }}
+              severity="success"
+            >{`Ви успішно зареєстровані і можете увійти до кабінету!`}</Alert>
+          )}
         </Box>
-        {alert && (
-          <Alert severity="success">{`Ви успішно зареєстровані!`}</Alert>
-        )}
       </Container>
     </ThemeProvider>
   );
