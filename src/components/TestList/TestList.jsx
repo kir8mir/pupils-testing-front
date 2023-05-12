@@ -24,7 +24,6 @@ export default function TestList() {
 
   useEffect(() => {
     updateTestList();
-    console.log("testList", testList);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [testList.length]);
 

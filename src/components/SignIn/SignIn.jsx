@@ -11,7 +11,6 @@ import { signInTeacher, signInPupil } from "../../utils/signIn";
 import { Alert, ButtonGroup, Stack, Switch } from "@mui/material";
 import { Fingerprint } from "@mui/icons-material";
 import { createMyProfile } from "../../utils/createMyProfile";
-import { borderRadius, padding } from "@mui/system";
 
 const theme = createTheme();
 
@@ -20,18 +19,27 @@ export default function SignIn({ setIsLoggedIn }) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [alert, setAlert] = useState("null");
+  const [failLogin, setFailLogin] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    pupilOrTeacher
-      ? setIsLoggedIn(
-          await signInPupil(data.get("email"), data.get("password"))
-        )
-      : setIsLoggedIn(
-          await signInTeacher(data.get("email"), data.get("password"))
-        );
+    if (pupilOrTeacher) {
+      setIsLoggedIn(await signInPupil(data.get("email"), data.get("password")));
+    } else {
+      setIsLoggedIn(
+        await signInTeacher(data.get("email"), data.get("password"))
+      );
+    }
+
+    if (!localStorage.getItem('role')) {
+      setFailLogin(true);
+      const timeout = setTimeout(() => {
+        setFailLogin(false);
+        clearTimeout(timeout);
+      }, 2000)
+    }
   };
 
   const createProfile = async (event) => {
@@ -154,6 +162,12 @@ export default function SignIn({ setIsLoggedIn }) {
               style={{ position: "absolute", maxWidth: "300px", top: "0" }}
               severity="success"
             >{`Ви успішно зареєстровані і можете увійти до кабінету!`}</Alert>
+          )}
+          {failLogin && (
+            <Alert
+              style={{ position: "absolute", maxWidth: "300px", top: "0" }}
+              severity="error"
+            >{`Ви ввели неправельні данні!`}</Alert>
           )}
         </Box>
       </Container>

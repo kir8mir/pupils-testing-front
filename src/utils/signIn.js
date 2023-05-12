@@ -15,15 +15,16 @@ export async function signInTeacher(name, password) {
     return req;
   });
 
-  console.log('LOOOOG IN', res);
-
   if (res) {
     localStorage.setItem("accessToken", await res.data.accessToken);
     localStorage.setItem("role", await res.data.role);
     localStorage.setItem("userId", await res.data.teacherId);
     localStorage.setItem("name", name);
     return await res.data.role;
+  } else {
+    return null;
   }
+
 }
 
 export async function signInPupil(name, password) {
@@ -39,6 +40,6 @@ export async function signInPupil(name, password) {
     localStorage.setItem("name", name);
     return await res.data.role;
   } catch (error) {
-    console.log("LOGIN ERROR", error);
+
   }
 }
