@@ -134,7 +134,7 @@ export default function SignIn({ setIsLoggedIn }) {
                 color="default"
               />
               <Typography component="h1" variant="h6">
-                Я учень
+                Я студент
               </Typography>
             </Stack>
 
