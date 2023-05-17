@@ -20,7 +20,7 @@ export default function Header({ setIsLoggedIn }) {
         backgroundColor="rgba(128, 128, 128, 0.2)"
       >
         <Typography component="h1" variant="subtitle2">
-          {`Привіт ${localStorage.getItem("name")}`}
+          {`Привіт, ${localStorage.getItem("name")}`}
         </Typography>
 
         {localStorage.getItem("role") === "teacher" ? (
