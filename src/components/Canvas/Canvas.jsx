@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./Canvas.css";
 import { Box } from "@mui/system";
+import React from "react";
 
 const colors = ["black", "red", "green", "coral", "blue", "lightgray"];
 
