@@ -11,6 +11,7 @@ import PupilMain from "./components/PupilMain/PupilMain";
 import Canvas from "./components/Canvas/Canvas";
 import {  Switch } from "@mui/material";
 import { Box } from "@mui/system";
+import React from "react";
 
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem("accessToken"));
