@@ -1,3 +1,4 @@
+import React from "react";
 import { IconButton, Stack, Typography } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import _logOut from "../../utils/logOut";
@@ -10,7 +11,6 @@ export default function Header({ setIsLoggedIn }) {
   };
 
   return (
-    // ct
     <div className="header"> 
       <Stack
         display="flex"
