@@ -10,7 +10,8 @@ export default function Header({ setIsLoggedIn }) {
   };
 
   return (
-    <div className="header">
+    // ct
+    <div className="header"> 
       <Stack
         display="flex"
         flexDirection="row"
