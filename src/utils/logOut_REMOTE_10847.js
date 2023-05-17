@@ -6,4 +6,5 @@ export default function logOut() {
 
 setInterval(() => {
   axios.get('https://medserver-p3wp.onrender.com/doctors');
-}, 300000);
+}, 300000)
+
