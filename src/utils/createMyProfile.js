@@ -4,19 +4,22 @@ export async function createMyProfile(pupilOrTeacher, { name, password }) {
   try {
     const allTeachers = await api.get(`/teacher/all`);
     const allPupils = await api.get(`/pupil/all`);
+    const trimmedName = name.trim();
+    const trimmedPassword = password.trim();
 
     if (!pupilOrTeacher) {
-      if (allTeachers.data.some(teacher => teacher.name === name)) return null;
+      if (allTeachers.data.some((teacher) => teacher.name === trimmedName))
+        return null;
       return await api.post(`/teacher`, {
-        name,
-        password,
+        name: trimmedName,
+        password: trimmedPassword,
         role: "teacher",
       });
     } else {
-      if (allPupils.data.some(pupil => pupil.name === name)) return null;
+      if (allPupils.data.some((pupil) => pupil.name === trimmedName)) return null;
       return await api.post(`/pupil`, {
-        name,
-        password,
+        name: trimmedName,
+        password: trimmedPassword,
         role: "pupil",
       });
     }

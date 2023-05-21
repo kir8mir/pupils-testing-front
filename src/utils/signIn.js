@@ -2,7 +2,7 @@ import { api } from "./api";
 
 export async function signInTeacher(name, password) {
   const res = await api.post(`/auth/login/teacher`, {
-    name,
+    name: name.trim(),
     password,
   });
 
@@ -19,7 +19,7 @@ export async function signInTeacher(name, password) {
     localStorage.setItem("accessToken", await res.data.accessToken);
     localStorage.setItem("role", await res.data.role);
     localStorage.setItem("userId", await res.data.teacherId);
-    localStorage.setItem("name", name);
+    localStorage.setItem("name",  name.trim());
     return await res.data.role;
   } else {
     return null;
@@ -30,14 +30,14 @@ export async function signInTeacher(name, password) {
 export async function signInPupil(name, password) {
   try {
     const res = await api.post(`/auth/login/pupil`, {
-      name,
-      password,
+      name: name.trim(),
+      password: password.trim(),
     });
 
     localStorage.setItem("accessToken", await res.data.accessToken);
     localStorage.setItem("role", await res.data.role);
     localStorage.setItem("userId", await res.data.userId);
-    localStorage.setItem("name", name);
+    localStorage.setItem("name",  name.trim());
     return await res.data.role;
   } catch (error) {
 

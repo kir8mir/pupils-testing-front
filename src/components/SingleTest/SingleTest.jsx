@@ -4,6 +4,7 @@ import {
   InputLabel,
   MenuItem,
   Modal,
+  Radio,
   Select,
   Typography,
 } from "@mui/material";
@@ -44,6 +45,7 @@ export default function SingleTest({ setSingleTestModal, singleTestModal }) {
   const handleChange = (event) => {
     setSelectedPupil(event.target.value);
   };
+  let [rerenderCounter, setRerenderCounter] = React.useState(1);
 
   const pupilAnswers = useRef([]);
   const isPupilAnswersLoaded = useRef(false);
@@ -61,6 +63,36 @@ export default function SingleTest({ setSingleTestModal, singleTestModal }) {
         return answer;
       }
     });
+    setRerenderCounter(rerenderCounter++);
+    setRerenderCounter(rerenderCounter++);
+    console.log(" pupilAnswers.current from Multi", pupilAnswers.current);
+  };
+
+  const setRadioAnswer = (answerId, quizId) => {
+    pupilAnswers.current = pupilAnswers.current.map((answer) => {
+      if (answer.quizId === quizId) {
+        if (answer.answerId === answerId) {
+          return { ...answer, isChecked: true };
+        } else {
+          return { ...answer, isChecked: false };
+        }
+      } else {
+        return answer;
+      }
+    });
+    isRadioChecked(answerId);
+    setRerenderCounter(rerenderCounter++);
+    setRerenderCounter(rerenderCounter++);
+
+    console.log(" pupilAnswers.current", pupilAnswers.current);
+  };
+
+  const isRadioChecked = (id) => {
+    const currentAnswer = pupilAnswers.current.find(
+      (answer) => answer.answerId === id
+    );
+
+    return currentAnswer.isChecked;
   };
 
   const calculateAnswers = () => {
@@ -153,7 +185,6 @@ export default function SingleTest({ setSingleTestModal, singleTestModal }) {
             borderBottom: "3px dashed gray",
             maxWidth: "100%",
             textOverflow: "ellipsis",
-
           }}
           id="modal-modal-title"
           variant="h4"
@@ -165,7 +196,7 @@ export default function SingleTest({ setSingleTestModal, singleTestModal }) {
         {!isPupil && (
           <Box sx={{ width: "100%", backgroundColor: "white" }}>
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Учні</InputLabel>
+              <InputLabel id="demo-simple-select-label">Студенти</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -174,7 +205,9 @@ export default function SingleTest({ setSingleTestModal, singleTestModal }) {
                 onChange={handleChange}
               >
                 {allPupil.map((pupil) => (
-                  <MenuItem value={pupil.id}>{pupil.name}</MenuItem>
+                  <MenuItem key={pupil.id} value={pupil.id}>
+                    {pupil.name}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -278,17 +311,26 @@ export default function SingleTest({ setSingleTestModal, singleTestModal }) {
                   >
                     {`- ${answer.title}`}
                   </Typography>
-                  {isPupil && !alreadyAnswered.length && (
-                    <Checkbox
-                      // checked={pupilAnswers.current.some(
-                      //   (pupilAnswer) =>
-                      //     pupilAnswer.answerId === answer.id &&
-                      //     pupilAnswer.isChecked
-                      // )}
-                      onClick={() => setAnswer(answer.id)}
-                      color="success"
-                    />
-                  )}
+                  {isPupil &&
+                    !alreadyAnswered.length &&
+                    (quiz.isSingleAnswer ? (
+                      <Radio
+                        onClick={() => setRadioAnswer(answer.id, quiz.id)}
+                        checked={isRadioChecked(answer.id)}
+                        color="success"
+                        variant="outlined"
+                      />
+                    ) : (
+                      <Checkbox
+                        // checked={pupilAnswers.current.some(
+                        //   (pupilAnswer) =>
+                        //     pupilAnswer.answerId === answer.id &&
+                        //     pupilAnswer.isChecked
+                        // )}
+                        onClick={() => setAnswer(answer.id)}
+                        color="success"
+                      />
+                    ))}
                 </Box>
               );
             })}

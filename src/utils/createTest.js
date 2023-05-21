@@ -10,6 +10,7 @@ export default async function createTest(testTitle, questionList, answerList) {
      const quizId = await api.post(`/quiz`, {
         test: +testId.data.raw.insertId,
         title: question.title,
+        isSingleAnswer: question.isSingleAnswer,
       });
 
       answerList.forEach(async (answer) => {

@@ -3,7 +3,16 @@ import Answer from "../Answer/Answer";
 import React from "react";
 import { TransitionGroup } from "react-transition-group";
 
-export default function AnswerList({ answerList, questionId, setAnswerList }) {
+export default function AnswerList({
+  answerList,
+  questionId,
+  setAnswerList,
+  questionList,
+}) {
+  // const isSingleAnswer = questionList.find(
+  //   (question) => question.id === questionId
+  // ).isSingleAnswer;
+
   return (
     <Stack
       style={{

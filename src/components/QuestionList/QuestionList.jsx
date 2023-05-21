@@ -6,8 +6,12 @@ import Question from "../Question/Question";
 import AnswerList from "../AnswerList/AnswerList";
 import { v4 as uuidv4 } from "uuid";
 
-
-export default function QuestionList({setAnswerList, setQuestionList, answerList, questionList}) {
+export default function QuestionList({
+  setAnswerList,
+  setQuestionList,
+  answerList,
+  questionList,
+}) {
   return (
     <Stack
       style={{
@@ -47,28 +51,44 @@ export default function QuestionList({setAnswerList, setQuestionList, answerList
                   onClick={() =>
                     setAnswerList([
                       ...answerList,
-                      { id: uuidv4(), questionId: question.id, title: "", isRight: false },
+                      {
+                        id: uuidv4(),
+                        questionId: question.id,
+                        title: "",
+                        isRight: false,
+                      },
                     ])
                   }
                 >
                   <AddIcon />
                 </IconButton>
               </Box>
-              <AnswerList answerList={answerList} setAnswerList={setAnswerList} questionId={question.id} />
+              <AnswerList
+                answerList={answerList}
+                setAnswerList={setAnswerList}
+                questionId={question.id}
+                questionList={questionList}
+              />
             </Collapse>
           </Stack>
         ))}
       </TransitionGroup>
 
       <IconButton
-        style={{ width: "min-content", marginTop: '20px' }}
+        style={{ width: "min-content", marginTop: "20px" }}
         onClick={() =>
-          setQuestionList([...questionList, { title: "", id: uuidv4() }])
+          setQuestionList([
+            ...questionList,
+            {
+              title: "",
+              id: uuidv4(),
+              isSingleAnswer: false,
+            },
+          ])
         }
       >
         <AddIcon />
       </IconButton>
-      
     </Stack>
   );
 }
