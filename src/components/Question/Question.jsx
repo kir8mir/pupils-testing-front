@@ -1,5 +1,5 @@
 import { Box, Stack, Switch, TextField, Typography } from "@mui/material";
-import React, { useRef } from "react";
+import React from "react";
 
 export default function Question({
   questionId,
@@ -7,7 +7,6 @@ export default function Question({
   setQuestionList,
   questionTitle,
 }) {
-  const haveSingleAnswer = useRef(false);
 
   const setQuestionTitle = (event) => {
     setQuestionList(
@@ -37,7 +36,6 @@ export default function Question({
     );
   };
 
-  console.log("haveSingleAnswer", haveSingleAnswer.current);
   return (
     <Stack style={{ width: "100%" }}>
       <TextField

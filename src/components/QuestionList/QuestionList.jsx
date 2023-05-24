@@ -1,17 +1,20 @@
 import { Box, Collapse, IconButton, Stack } from "@mui/material";
 import React from "react";
-import { TransitionGroup } from "react-transition-group";
 import AddIcon from "@mui/icons-material/Add";
 import Question from "../Question/Question";
 import AnswerList from "../AnswerList/AnswerList";
 import { v4 as uuidv4 } from "uuid";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 export default function QuestionList({
   setAnswerList,
   setQuestionList,
   answerList,
   questionList,
+  removeQuestion,
 }) {
+
+
   return (
     <Stack
       style={{
@@ -21,7 +24,7 @@ export default function QuestionList({
         alignItems: "center",
       }}
     >
-      <TransitionGroup
+      <Stack
         style={{
           width: "100%",
           gap: "40px",
@@ -39,12 +42,13 @@ export default function QuestionList({
             }}
           >
             <Collapse in={true}>
-              <Box style={{ display: "flex" }}>
+              <Box key={`${'box'}question.id`} style={{ display: "flex" }}>
                 <Question
                   questionId={question.id}
                   questionList={questionList}
                   setQuestionList={setQuestionList}
                   questionTitle={question.title}
+                  key={`${'q'}question.id`}
                 />
                 <IconButton
                   style={{ width: "min-content", height: "min-content" }}
@@ -62,17 +66,24 @@ export default function QuestionList({
                 >
                   <AddIcon />
                 </IconButton>
+                <IconButton
+                  style={{ width: "min-content", height: "min-content" }}
+                  onClick={() => removeQuestion(question.id)}
+                >
+                  <DeleteForeverIcon />
+                </IconButton>
               </Box>
               <AnswerList
                 answerList={answerList}
                 setAnswerList={setAnswerList}
                 questionId={question.id}
                 questionList={questionList}
+                key={`${'a'}question.id`}
               />
             </Collapse>
           </Stack>
         ))}
-      </TransitionGroup>
+      </Stack>
 
       <IconButton
         style={{ width: "min-content", marginTop: "20px" }}

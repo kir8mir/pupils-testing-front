@@ -36,6 +36,19 @@ export default function CreateTestModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+
+  const removeQuestion = (id) => {
+    const updatedQuestionList = questionList.filter(
+      (questionRemove) => questionRemove.id !== id
+    );
+    setQuestionList([...updatedQuestionList]);
+    setAnswerList((prevAnswerList) =>
+      prevAnswerList.filter(
+        (answerRemove) => answerRemove.questionId !== id
+      )
+    );
+  }
+
   async function handleClick() {
     await createTest(testTitle, questionList, answerList);
 
@@ -78,6 +91,7 @@ export default function CreateTestModal() {
             answerList={answerList}
             setQuestionList={setQuestionList}
             setAnswerList={setAnswerList}
+            removeQuestion={removeQuestion}
           />
           <LoadingButton
             color="secondary"

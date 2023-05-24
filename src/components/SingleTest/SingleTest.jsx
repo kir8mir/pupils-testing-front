@@ -65,7 +65,6 @@ export default function SingleTest({ setSingleTestModal, singleTestModal }) {
     });
     setRerenderCounter(rerenderCounter++);
     setRerenderCounter(rerenderCounter++);
-    console.log(" pupilAnswers.current from Multi", pupilAnswers.current);
   };
 
   const setRadioAnswer = (answerId, quizId) => {
@@ -83,8 +82,6 @@ export default function SingleTest({ setSingleTestModal, singleTestModal }) {
     isRadioChecked(answerId);
     setRerenderCounter(rerenderCounter++);
     setRerenderCounter(rerenderCounter++);
-
-    console.log(" pupilAnswers.current", pupilAnswers.current);
   };
 
   const isRadioChecked = (id) => {
@@ -98,24 +95,26 @@ export default function SingleTest({ setSingleTestModal, singleTestModal }) {
   const calculateAnswers = () => {
     if (!alreadyAnswered.length) return;
     let numberOfRightsAnswers = 0;
-    let numberOfOthersAnswers = 0;
+    let numberOfOthersAnswers = singleTestModal.quizzes.length;
 
-    singleTestModal.quizzes.forEach((rightQuiz) =>
-      alreadyAnswered[0].answersIntoQuizzes
-        .filter((alreadyQuizzed) => alreadyQuizzed.quizId === rightQuiz.id)
-        .forEach((pupilAnswer) => {
-          const thisAnswer = rightQuiz.answers.find(
-            (rightAnswer) => rightAnswer.id === pupilAnswer.answerId
-          );
+    singleTestModal.quizzes.forEach((rightQuiz) => {
+      const rightAnswers = rightQuiz.answers.filter((a) => a.is_right);
+      const allStudentsAnswers = alreadyAnswered[0].answersIntoQuizzes.filter(
+        (a) => a.quizId === rightQuiz.id && a.isChecked
+      );
 
-          if (thisAnswer.is_right) numberOfOthersAnswers++;
+      let grade = 0;
+      
+      allStudentsAnswers.forEach(sA => {
+        if (rightAnswers.some(rA => rA.id === sA.answerId)) {
+          grade++
+        }
+      })
 
-          return pupilAnswer.isChecked === thisAnswer.is_right &&
-            thisAnswer.is_right
-            ? numberOfRightsAnswers++
-            : null;
-        })
-    );
+      if (rightAnswers.length === grade && allStudentsAnswers.length <= rightAnswers.length) {
+        numberOfRightsAnswers++;
+      }
+    });
 
     setGrade({
       rightAnswers: numberOfRightsAnswers,
